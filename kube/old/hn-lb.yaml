@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hn
+  template:
+    metadata:
+      labels:
+        app: hn
+    spec:
+      containers:
+        - name: hn
+          image: 483104334676.dkr.ecr.eu-west-1.amazonaws.com/hn:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: HN_URL
+              value: shimon.ycombinator.com
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hn
+spec:
+  selector:
+    app: hn
+  ports:
+    - port: 80
+      targetPort: 8000
+  type: LoadBalancer

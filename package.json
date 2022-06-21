@@ -1,0 +1,18 @@
+{
+  "name": "hn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"some day we will have tests\" && exit 0",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "koa": "^2.11.0",
+    "koa-router": "^8.0.8",
+    "uuid": "^7.0.3"
+  }
+}

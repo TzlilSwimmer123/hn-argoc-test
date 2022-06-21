@@ -1,0 +1,26 @@
+name: Datree Infrastructure-as-code Policy Check
+
+on:
+  pull_request:
+    branches: [ master ]
+
+env:
+  DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }} 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Run Datree Policy Check
+      uses: datreeio/action-datree@main
+      with:
+        path: 'kube/*.yaml'

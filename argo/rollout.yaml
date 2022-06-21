@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: hn-rollout
+  labels:
+    app: hn-app
+spec:
+  replicas: 3
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: true
+      activeService: hn-app
+  selector:
+    matchLabels:
+      app: hn-app
+  template:
+    metadata:
+      labels:
+        app: hn-app
+    spec:
+      containers:
+        - name: hn
+          image: 483104334676.dkr.ecr.eu-west-1.amazonaws.com/hn:latest
+          ports:
+            - containerPort: 8000

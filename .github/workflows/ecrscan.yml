@@ -1,0 +1,45 @@
+on:
+  pull_request:
+    branches: [ master ]
+jobs:
+  deploy:
+    name: ECR Image Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Build & Push Docker image
+        id: docker-build
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: hn
+          # Use the git tag as the image tag.
+          # github.ref format is like `refs/tags/v0.0.1`, so we strip the the
+          # `refs/tags/` prefix and export this for later use.
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          tag=${IMAGE_TAG}
+          echo "Tag is $tag"
+          echo "::set-output name=tag::$tag"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$tag .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$tag
+      - name: Scan Docker image
+        id: docker-scan
+        uses: alexjurkiewicz/ecr-scan-image@v1.7.0
+        with:
+          repository: hn
+          tag: ${{ github.sha }}
+          # fail_threshold: medium
+          # ignore_list: |
+          #   CVE-2014-7654321
+          #   CVE-2014-456132
+      # Access scan results in later steps
+      - run: echo "${{ steps.docker-scan.outputs.total }} total vulnerabilities."
