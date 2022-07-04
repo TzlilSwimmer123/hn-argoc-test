@@ -55,6 +55,8 @@ spec:
           env:
             - name: HN_URL
               value: hn.news
+            - name: HN_KAKI
+              value: kaki
           imagePullPolicy: Always
 ---
 apiVersion: v1
