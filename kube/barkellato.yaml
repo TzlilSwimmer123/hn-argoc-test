@@ -2,7 +2,7 @@
  kind: Application
  metadata:
    name: mobx-barkellato
-   namespace: argocd
+   namespace: default
  spec:
    project: default
    source:
