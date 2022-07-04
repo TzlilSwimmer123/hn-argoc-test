@@ -57,6 +57,8 @@ spec:
               value: hn.news
             - name: HN_KAKI
               value: kaki
+            - name: HN_PIPI
+              value: pipi
           imagePullPolicy: Always
 ---
 apiVersion: v1
