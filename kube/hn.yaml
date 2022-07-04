@@ -59,6 +59,8 @@ spec:
               value: kaki
             - name: HN_PIPI
               value: pipi
+            - name: HN_BUBU
+              value: bubu
           imagePullPolicy: Always
 ---
 apiVersion: v1
