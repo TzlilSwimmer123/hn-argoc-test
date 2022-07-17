@@ -36,14 +36,14 @@ spec:
       containers:
         - name: hn
           image: preslavmihaylov/kubehelloworld:latest
-           livenessProbe:
-             httpGet:
-               path: /health
-               port: 8000
-           readinessProbe:
-             httpGet:
-               path: /health
-               port: 8000
+         livenessProbe:
+           httpGet:
+             path: /health
+             port: 8000
+         readinessProbe:
+           httpGet:
+             path: /health
+             port: 8000
           ports:
             - containerPort: 3000
           resources:
