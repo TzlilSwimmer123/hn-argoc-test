@@ -81,6 +81,6 @@ spec:
     - port: 80
       targetPort: 8000
       protocol: TCP
-  type: NodePort
+  type: CNAME
   selector:
     app: "hn"
