@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/part-of: hn-app
     app.kubernetes.io/managed-by: Shimon
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: hn
