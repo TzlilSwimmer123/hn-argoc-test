@@ -40,10 +40,10 @@ spec:
             httpGet:
              path: /health
              port: 8000
-          readinessProbe:
-            httpGet:
-             path: /health
-             port: 8000
+#          readinessProbe:
+#            httpGet:
+#             path: /health
+#             port: 8000
           ports:
             - containerPort: 3000
           resources:
